@@ -1,0 +1,38 @@
+@import '~src/assets/scss/variables';
+
+:host {
+    display: block;
+}
+
+.wrapper {
+    padding: 70px 0;
+}
+
+.app-header {
+    display: flex;
+    background: rgba(white, 0.3);
+    justify-content: space-between;
+    height: 100px;
+    align-items: center;
+
+    .logo {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+
+        &__image {
+            font-size: 48px;
+        }
+
+        &__text {
+            font-size: 28px;
+
+        }
+    }
+
+    .links {
+        display: flex;
+        gap: 15px;
+        font-size: 22px;
+    }
+}

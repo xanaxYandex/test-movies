@@ -1,1 +1,47 @@
-<p>movie-detailed works!</p>
+<div class="container">
+    <a class="btn" routerLink="../"><i class="fa fa-arrow-left"></i>Go back</a>
+    <ng-container *ngIf="(movie$ | async) as movie;else loader">
+        <div class="detailed-view">
+            <div class="detailed-view__img"><i class="fa fa-film"></i></div>
+            <div class="detailed-view-props">
+                <div class="detailed-view-info-item">
+                    <h2 class="detailed-view-info-item__label">Title:</h2>
+                    <span class="detailed-view-info-item__value">{{movie.title}}</span>
+                </div>
+                <div class="detailed-view-info-item">
+                    <h2 class="detailed-view-info-item__label">Episode:</h2>
+                    <span class="detailed-view-info-item__value">{{movie.episode_id}}</span>
+                </div>
+                <div class="detailed-view-info-item">
+                    <h2 class="detailed-view-info-item__label">Opening crawl:</h2>
+                    <span class="detailed-view-info-item__value">{{movie.opening_crawl}}</span>
+                </div>
+                <div class="detailed-view-info-item">
+                    <h2 class="detailed-view-info-item__label">Director:</h2>
+                    <span class="detailed-view-info-item__value">{{movie.director}}</span>
+                </div>
+                <div class="detailed-view-info-item">
+                    <h2 class="detailed-view-info-item__label">Producer:</h2>
+                    <span class="detailed-view-info-item__value">{{movie.producer}}</span>
+                </div>
+                <div class="detailed-view-info-item">
+                    <h2 class="detailed-view-info-item__label">Release:</h2>
+                    <span class="detailed-view-info-item__value">{{movie.release_date | date: 'dd MMM yyyy'}}</span>
+                </div>
+            </div>
+        </div>
+        <ng-container *ngIf="(chars$ | async) as chars">
+            <div class="detailed-view-links" *ngIf="chars.length; else loader">
+                <a class="detailed-view-link"
+                   [routerLink]="['/characters', char.url | retrieveIdFromUrl]"
+                   *ngFor="let char of chars">
+                    <i class="fa fa-user detailed-view-link__img"></i>
+                    <h4 class="detailed-view-link__text">{{char.name}}</h4>
+                </a>
+            </div>
+        </ng-container>
+    </ng-container>
+</div>
+<ng-template #loader>
+    <app-loader></app-loader>
+</ng-template>

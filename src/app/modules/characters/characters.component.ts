@@ -1,4 +1,10 @@
 import {Component, OnInit} from '@angular/core';
+import {Observable} from "rxjs";
+import {Store} from "@ngrx/store";
+import {CharactersState} from "../../store/characters/characters.reducer";
+import {getCharacters} from "../../store/characters/characters.actions";
+import {characterLoadingSelector, charactersSelector} from "../../store/characters/characters.selectors";
+import {ICharacter} from "../../models/character";
 
 @Component({
     selector: 'app-characters',
@@ -6,11 +12,14 @@ import {Component, OnInit} from '@angular/core';
     styleUrls: ['./characters.component.scss']
 })
 export class CharactersComponent implements OnInit {
+    public characters$: Observable<ICharacter[]> = this.store.select(charactersSelector);
+    public isLoading$: Observable<boolean> = this.store.select(characterLoadingSelector);
 
-    constructor() {
+    constructor(private store: Store<CharactersState>) {
     }
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
+        this.store.dispatch(getCharacters());
     }
 
 }

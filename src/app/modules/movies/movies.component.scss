@@ -1,0 +1,47 @@
+@import '~src/assets/scss/variables';
+
+:host {
+    display: block;
+}
+
+.movie-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+
+    .movie-item {
+        border-radius: 20px;
+        cursor: pointer;
+        transition: 0.2s ease;
+        display: flex;
+        flex-direction: column;
+        padding: 20px 15px;
+        background: rgba($link-color, 0.2);
+
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 7px 10px rgba(black, 0.5);
+        }
+
+        &__img {
+            transform: rotate(45deg);
+            color: $btn-color;
+            text-align: center;
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        &__title {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 22px;
+            font-weight: 600;
+            color: #20272e;
+        }
+
+        &__opening-crawl {
+            line-height: 20px;
+            font-weight: 400;
+        }
+    }
+}

@@ -1,1 +1,14 @@
-<p>movies works!</p>
+<ng-container *ngIf="!(isLoading$ | async); else loader">
+    <div class="movie-list container">
+        <a class="movie-item"
+           [routerLink]="[movie.url | retrieveIdFromUrl]"
+           *ngFor="let movie of movies$ | async">
+            <div class="movie-item__img"><i class="fa fa-film"></i></div>
+            <span class="movie-item__title">{{movie.title}}</span>
+            <span class="movie-item__opening-crawl">{{movie.opening_crawl | restrictText}}</span>
+        </a>
+    </div>
+</ng-container>
+<ng-template #loader>
+    <app-loader></app-loader>
+</ng-template>

@@ -1,1 +1,55 @@
-<p>character-detailed works!</p>
+<div class="container" >
+    <a class="btn" routerLink="../"><i class="fa fa-arrow-left"></i>Go back</a>
+    <ng-container *ngIf="(character$ | async) as char;else loader">
+        <div class="detailed-view">
+            <div class="detailed-view__img"><i class="fa fa-user"></i></div>
+            <div class="detailed-view-props">
+                <div class="detailed-view-info-item">
+                    <h2 class="detailed-view-info-item__label">Name:</h2>
+                    <span class="detailed-view-info-item__value">{{char.name}}</span>
+                </div>
+                <div class="detailed-view-info-item">
+                    <h2 class="detailed-view-info-item__label">Height:</h2>
+                    <span class="detailed-view-info-item__value">{{char.height}}</span>
+                </div>
+                <div class="detailed-view-info-item">
+                    <h2 class="detailed-view-info-item__label">Weight:</h2>
+                    <span class="detailed-view-info-item__value">{{char.mass}}</span>
+                </div>
+                <div class="detailed-view-info-item">
+                    <h2 class="detailed-view-info-item__label">Hair color:</h2>
+                    <span class="detailed-view-info-item__value">{{char.hair_color}}</span>
+                </div>
+                <div class="detailed-view-info-item">
+                    <h2 class="detailed-view-info-item__label">Skin color:</h2>
+                    <span class="detailed-view-info-item__value">{{char.skin_color}}</span>
+                </div>
+                <div class="detailed-view-info-item">
+                    <h2 class="detailed-view-info-item__label">Eye color:</h2>
+                    <span class="detailed-view-info-item__value">{{char.eye_color}}</span>
+                </div>
+                <div class="detailed-view-info-item">
+                    <h2 class="detailed-view-info-item__label">Birth year:</h2>
+                    <span class="detailed-view-info-item__value">{{char.birth_year}}</span>
+                </div>
+                <div class="detailed-view-info-item">
+                    <h2 class="detailed-view-info-item__label">Gender:</h2>
+                    <span class="detailed-view-info-item__value">{{char.gender}}</span>
+                </div>
+            </div>
+        </div>
+        <ng-container *ngIf="(movies$ | async) as movies">
+            <div class="detailed-view-links" *ngIf="movies.length; else loader">
+                <a class="detailed-view-link"
+                   [routerLink]="['/movies', movie.url | retrieveIdFromUrl]"
+                   *ngFor="let movie of movies">
+                    <i class="fa fa-film detailed-view-link__img"></i>
+                    <h4 class="detailed-view-link__text">{{movie.title}}</h4>
+                </a>
+            </div>
+        </ng-container>
+    </ng-container>
+</div>
+<ng-template #loader>
+    <app-loader></app-loader>
+</ng-template>

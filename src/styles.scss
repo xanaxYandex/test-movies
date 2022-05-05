@@ -1,1 +1,139 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'assets/scss/variables';
+@import 'assets/scss/fonts';
+
+.html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(-45deg, $main-bg, $sub-bg, $main-bg);
+    font-family: 'Josefin Sans', "Segoe UI", sans-serif;
+    color: #101212;
+}
+
+a {
+    text-decoration: none;
+    color: initial;
+}
+
+* {
+    outline: none;
+    box-sizing: border-box;
+}
+
+.container {
+    padding: 0 200px;
+}
+
+.link {
+    transition: 0.1s ease-in;
+    color: $link-color;
+
+    &:hover {
+        text-decoration: none;
+        transform: translateY(-4px);
+        filter: drop-shadow(0 10px 5px black );
+    }
+    &:link { text-decoration: none; }
+    &:visited { text-decoration: none; }
+    &:active { text-decoration: none; }
+}
+
+.btn {
+    border: 2px solid $btn-color;
+    transition: 0.2s ease;
+    cursor: pointer;
+    padding: 15px 10px;
+    display: flex;
+    gap: 10px;
+    font-size: 18px;
+    background: transparent;
+    color: #3d4e68;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    border-radius: 25px;
+
+    i {
+        transition: 0.2s ease;
+    }
+
+    &:hover {
+        background: $btn-color;
+        i {
+            transform: translateX(-6px);
+        }
+    }
+}
+
+.detailed-view {
+    padding: 25px 0;
+    display: grid;
+    grid-template-columns: minmax(200px, 400px) auto;
+    column-gap: 50px;
+
+    &__img {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        background: rgba($link-color, 0.2);
+        font-size: 100px;
+        color: $btn-color;
+    }
+
+    .detailed-view-props {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .detailed-view-info-item {
+        display: grid;
+        grid-template-columns: 150px auto;
+        align-items: center;
+        gap: 10px;
+
+        &__label {
+            font-weight: 500;
+            font-size: 26px;
+        }
+
+        &__value {
+            font-size: 22px;
+            font-weight: 300;
+        }
+    }
+}
+
+.detailed-view-links {
+    padding-bottom: 20px;
+    display: flex;
+    gap: 30px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+
+    .detailed-view-link {
+        padding: 15px 25px;
+        border-radius: 13px;
+        background: rgba($link-color, 0.2);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        min-width: 270px;
+
+        &__img {
+            color: $btn-color;
+            font-size: 48px;
+        }
+
+        &__text {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+}

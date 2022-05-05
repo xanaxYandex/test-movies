@@ -1,1 +1,13 @@
-<router-outlet></router-outlet>
+<header class="container app-header">
+    <a class="logo" routerLink="/">
+        <i class="fa fa-laptop logo__image"></i>
+        <span class="logo__text">Movies and Characters</span>
+    </a>
+    <div class="links">
+        <a class="link" [routerLink]="['/movies']">Movies</a>
+        <a class="link" [routerLink]="['/characters']">Characters</a>
+    </div>
+</header>
+<main class="wrapper">
+    <router-outlet></router-outlet>
+</main>

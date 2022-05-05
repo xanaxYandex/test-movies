@@ -1,1 +1,14 @@
-<p>characters works!</p>
+<ng-container *ngIf="!(isLoading$ | async); else loader">
+    <div class="character-list container">
+        <a class="character-item"
+           [routerLink]="[character.url | retrieveIdFromUrl]"
+           *ngFor="let character of characters$ | async">
+            <div class="character-item__img"><i class="fa fa-user-circle"></i></div>
+            <span class="character-item__name">{{character.name}}</span>
+            <span class="character-item__birth-year">{{character.birth_year}}</span>
+        </a>
+    </div>
+</ng-container>
+<ng-template #loader>
+    <app-loader></app-loader>
+</ng-template>
