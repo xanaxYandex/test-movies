@@ -18,7 +18,7 @@ export const filteredCharactersSelector = (ids: string[]) => createSelector(
 
 export const requestedCharacterSelector = createSelector(charactersState, (state) => state.selectedCharacter);
 
-export const hasCharacterSelector = createSelector(charactersState, (state) => state.hasValue);
+export const hasCharactersSelector = createSelector(charactersState, (state) => state.hasValue);
 
 export const characterLoadingSelector = createSelector(charactersState, (state) => state.isLoading);
 

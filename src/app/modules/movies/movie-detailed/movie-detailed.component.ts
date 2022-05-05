@@ -10,7 +10,7 @@ import {
 } from "../../../store/movies/movies.selectors";
 import {ActivatedRoute} from "@angular/router";
 import {ICharacter} from "../../../models/character";
-import {filteredCharactersSelector} from "../../../store/characters/characters.selectors";
+import {filteredCharactersSelector, hasCharactersSelector} from "../../../store/characters/characters.selectors";
 import {getIdFromUrl} from "../../../shared/utils";
 import {getCharacters} from "../../../store/characters/characters.actions";
 
@@ -19,27 +19,33 @@ import {getCharacters} from "../../../store/characters/characters.actions";
     templateUrl: './movie-detailed.component.html',
 })
 export class MovieDetailedComponent {
-    public movie$: Observable<IMovie | null> = this.store.select(hasMoviesSelector)
-        .pipe(
-            switchMap((hasMovies) => {
-                if (hasMovies) {
-                    return this.store.select(movieByIdSelector(this.route.snapshot.params['id']));
-                } else {
-                    this.store.dispatch(getMovieById({movieId: this.route.snapshot.params['id']}));
-                    return this.store.select(requestedMovieSelector);
-                }
-            }),
-            shareReplay(1)
-        );
-    public chars$: Observable<ICharacter[]> = this.movie$.pipe(
-        switchMap((movie) => {
-            const charIds = movie?.characters.map(url => getIdFromUrl(url)) || [];
-            return this.store.select(filteredCharactersSelector(charIds));
+    public movie$: Observable<IMovie | null> = this.store.select(hasMoviesSelector).pipe(
+        switchMap((hasMovies) => {
+            if (hasMovies) {
+                return this.store.select(movieByIdSelector(this.route.snapshot.params['id']));
+            } else {
+                this.store.dispatch(getMovieById({movieId: this.route.snapshot.params['id']}));
+                return this.store.select(requestedMovieSelector);
+            }
+        }),
+        shareReplay(1)
+    );
+
+    public chars$: Observable<ICharacter[]> = this.store.select(hasCharactersSelector).pipe(
+        switchMap(hasChars => {
+            if (!hasChars) {
+                this.store.dispatch(getCharacters());
+            }
+            return this.movie$.pipe(
+                switchMap((movie) => {
+                    const charIds = movie?.characters.map(url => getIdFromUrl(url)) || [];
+                    return this.store.select(filteredCharactersSelector(charIds));
+                })
+            );
         })
-    )
+    );
 
     constructor(private store: Store<MoviesState>, private route: ActivatedRoute) {
-        this.store.dispatch(getCharacters());
     }
 
 }

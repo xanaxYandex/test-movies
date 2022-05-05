@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {Store} from "@ngrx/store";
 import {MoviesState} from "../../store/movies/movies.reducer";
-import {moviesLoadingSelector, moviesSelector} from "../../store/movies/movies.selectors";
+import {hasMoviesSelector, moviesLoadingSelector, moviesSelector} from "../../store/movies/movies.selectors";
 import {getMovies} from "../../store/movies/movies.actions";
-import {Observable, tap} from "rxjs";
+import {Observable, switchMap} from "rxjs";
 import {IMovie} from "../../models/movie";
 
 @Component({
@@ -11,15 +11,18 @@ import {IMovie} from "../../models/movie";
     templateUrl: './movies.component.html',
     styleUrls: ['./movies.component.scss']
 })
-export class MoviesComponent implements OnInit {
-    public movies$: Observable<IMovie[]> = this.store.select(moviesSelector);
+export class MoviesComponent {
+    public movies$: Observable<IMovie[]> = this.store.select(hasMoviesSelector).pipe(
+        switchMap((hasChars) => {
+            if (!hasChars) {
+                this.store.dispatch(getMovies());
+            }
+            return this.store.select(moviesSelector);
+        })
+    );
     public isLoading$: Observable<boolean> = this.store.select(moviesLoadingSelector);
 
     constructor(private store: Store<MoviesState>) {
-    }
-
-    public ngOnInit(): void {
-        this.store.dispatch(getMovies());
     }
 
 }
