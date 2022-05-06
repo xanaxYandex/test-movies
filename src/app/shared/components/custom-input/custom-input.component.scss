@@ -1,0 +1,35 @@
+@import '~src/assets/scss/variables';
+
+:host {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.input-field {
+    text-align: start;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    &__title {
+        font-weight: 500;
+        margin-bottom: 10px;
+    }
+
+    &__control {
+        padding: 5px 20px;
+        transition: 0.2s ease;
+        border: 2px solid $link-color;
+        background: rgba(white, 0.15);
+        outline: none;
+        border-radius: 20px;
+        height: 70px;
+        font-size: 32px;
+        font-weight: 300;
+        font-family: 'Josefin Sans', "Segoe UI", sans-serif;
+
+        &:focus {
+            box-shadow: 0 0 10px $link-color;
+        }
+    }
+}

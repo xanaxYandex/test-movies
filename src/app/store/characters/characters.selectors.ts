@@ -16,6 +16,13 @@ export const filteredCharactersSelector = (ids: string[]) => createSelector(
     (chars) => chars.filter(char => ids.includes(getIdFromUrl(char.url))) || []
 );
 
+export const charactersByNameSelector = (name: string) => createSelector(
+    charactersSelector,
+    (chars) => (name.length > 2
+        ? chars.filter(char => char.name.toLowerCase().includes(name.toLowerCase()))
+        : chars) || []
+);
+
 export const requestedCharacterSelector = createSelector(charactersState, (state) => state.selectedCharacter);
 
 export const hasCharactersSelector = createSelector(charactersState, (state) => state.hasValue);

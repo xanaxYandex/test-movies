@@ -4,6 +4,7 @@ import {CharactersRoutingModule} from './characters-routing.module';
 import {CharactersComponent} from './characters.component';
 import {CharacterDetailedComponent} from './character-detailed/character-detailed.component';
 import {SharedModule} from "../../shared/shared.module";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
     declarations: [
@@ -15,7 +16,8 @@ import {SharedModule} from "../../shared/shared.module";
         CharactersRoutingModule,
         // StoreModule.forFeature('characters', charactersReducer),
         // EffectsModule.forFeature([CharactersEffects]),
-        SharedModule
+        SharedModule,
+        ReactiveFormsModule
     ]
 })
 export class CharactersModule {}
